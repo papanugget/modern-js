@@ -153,5 +153,20 @@ sum1 = num1 % num2;
 //Math Object
 sum1 = Math.PI;
 sum1 = Math.E;
+sum1 = Math.round(2.8);
+sum1 = Math.ceil(2.4);
+sum1 = Math.floor(2.8);
+sum1 = Math.sqrt(64);
+sum1 = Math.abs(-13);
+sum1 = Math.pow(8,2);
+sum1 = Math.min(2, 33, 546, 12);
+sum1 = Math.max(2, 33, 546, 12);
+sum1 = Math.random();
+sum1 = Math.floor(Math.random() * 20 + 1);
 
 console.log(sum1);
+
+//String Methods & Concatenation
+const firstName = "Jon";
+const lastName = "Snow";
+ 
