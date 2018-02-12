@@ -169,4 +169,55 @@ console.log(sum1);
 //String Methods & Concatenation
 const firstName = "Jon";
 const lastName = "Snow";
- 
+const age2 = 41;
+const str = 'Hello there, my name is Jonas';
+const tags = 'web design, web development, programming'
+
+let val3;
+
+//concatenation
+val3 = firstName + lastName;
+
+val3 = firstName + " " + lastName;
+
+//append
+val3 = "Eddard";
+val3 += " Stark";
+
+val3 = "Hello , my name is " + firstName + " and I am " + age2;
+
+//escaping
+val3 = 'That\'s aweseome I can\'t wait';
+
+//length
+val3 = firstName.length;
+
+//concat
+val3 = firstName.concat(' ', lastName);
+
+//change case
+val3 = firstName.toUpperCase();
+val3 = lastName.toLowerCase();
+
+val3 = firstName[2];
+
+//indexof
+val3 = lastName.indexOf('w');
+//lastindexof
+val3 = lastName.lastIndexOf('w');
+//charAt
+val3 = firstName.charAt('1');
+//last char
+val3 = firstName.charAt(firstName.length -1);
+//substring
+val3 = lastName.substr(0, 2);
+//slice
+val3 = lastName.slice(0, 3);
+//split
+val3 = str.split(' ');
+val3 = tags.split(',');
+//replace
+val3 = str.replace('Jonas', 'Jack');
+//includes
+val3 = str.includes('Hello');
+console.log(val3);
