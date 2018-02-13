@@ -250,3 +250,59 @@
 // document.body.innerHTML = html;
 
 //Arrays & Array Methods
+
+//create some arrays
+ const numbs = [11,24,36,48,50,656];
+ const numbs2 = new Array(33, 23, 44, 65, 8, 2);
+ const fruit = ['Mango', 'Banana', 'Watermelon', 'Orange', 'Apple'];
+ const mixed = [22, 'Hello', true, undefined, null, {a:1, b:1}, new Date()];
+
+//  console.log(mixed);
+let val;
+
+//get array length
+val = numbs.length;
+//check if is array
+val = Array.isArray(numbs);
+//get single value;
+val = numbs[2];
+//insert into array
+numbs[2] = 100;
+//find index of value 
+val = numbs.indexOf(656);
+
+//mutating arrays
+//adding onto end
+// numbs.push(999);
+// //adding onto front
+// numbs.unshift(111);
+// //remove from end
+// numbs.pop();
+// //remove from front
+// numbs.shift();
+// //splice values
+// numbs.splice(1, 1); //removes 24
+// //reverse array
+// numbs.reverse();
+
+//concat arrays
+val = numbs.concat(numbs2);
+//sort array
+val = fruit.sort();
+// val = numbs.sort();
+//use compare function
+// val = numbs.sort(function(x, y){
+//         return x -y; //compares each element against each other as a string
+// });
+// //reverse sort
+// val = numbs.sort(function(x, y) {
+//         return y - x;
+// });
+//find in an array
+function under50(num){
+        return num < 50;
+}
+val = numbs.find(under50); //finds first element that fulfills criteria
+
+console.log(numbs);
+console.log(val);
