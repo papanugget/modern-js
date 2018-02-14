@@ -357,3 +357,31 @@
 // }
 
 //Date & Time Objects
+
+// let vaL;
+
+// const today = new Date();
+// let birthday = new Date('11-10-1976 11:23:13');
+// birthday = new Date('November 10 1976');
+// birthday = new Date('11/10/1976');
+
+
+// val = birthday;
+// val = today.getMonth(); //zero based so January = 0 February = 1 etc.
+// val = today.getDate();
+// val = today.getDay();  //weeks start on Sunday and zero based
+// val = today.getFullYear();
+// val = today.getHours();
+// val = today.getMinutes();
+// val = today.getSeconds();
+// val = today.getTime();
+
+// birthday.setMonth(2);
+// birthday.setDate(12);
+// birthday.setFullYear(2001);
+// birthday.setHours(3);
+// birthday.setMinutes(55);
+
+// console.log(birthday);
+
+//If statements / comparison operators
