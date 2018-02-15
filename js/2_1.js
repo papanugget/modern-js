@@ -562,3 +562,72 @@ const id = 100;
 // todo.delete(666);
 
 //Loops and Iteration
+//For Loops - for unknown amount of iterations
+// for(let i = 1; i <= 10; i++){
+//         // console.log(i + ' in a loop');
+//         if(i === 2){
+//                 console.log('2 is my favorite number'); //will include string "Number is 2"
+//                 continue; //skips string "Number is 2"
+//         }
+//         if(i === 5){
+//                 console.log('Stop the loop!');
+//                 break;
+//         }
+//         console.log('Number is ' + i);
+// }
+
+//While loop - for known amount of iteration
+// let i = 0;
+
+// while(i < 10){
+//         console.log('Number is ' + i)
+//         i++;
+// }
+
+//Do While - runs at least once no matter what
+// let i = 0;
+
+// do {
+//         console.log('Number is ' + i)
+//         i++;
+// }
+// while(i < 10);
+
+// Looping thru arrays
+const starks = ['Arya', 'Brandon', 'Catelyn', 'Eddard', 'Sansa', 'Rickon', 'Robb'];
+
+// for(let i = 0; i < starks.length; i++){
+//         console.log(starks[i]);
+// }
+
+//forEach
+// starks.forEach(function(stark, index, starks){
+//         console.log(`${index} : ${stark}`);
+//         console.log(starks);
+// });
+
+//Map - returns a different array
+// const houseStark = [
+//         {id: 1, name:'Arya'},
+//         {id: 2, name:'Doofus'},
+//         {id: 3, name:'Catelyn'},
+//         {id: 4, name:'Brandon'}
+// ];
+
+// const ids = houseStark.map(function(e, i, a){
+//         return e.id;
+// });
+
+//For In Loop
+// const user = {
+//         firstName: 'Doofus',
+//         lastName: 'Butthead',
+//         age: 19
+// }
+
+// for(let x in user){
+//         console.log(x); //logs key
+//         console.log(`${x} : ${user[x]}`); //logs key value pair
+// }
+
+//Window Object
