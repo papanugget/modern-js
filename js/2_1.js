@@ -630,4 +630,60 @@ const starks = ['Arya', 'Brandon', 'Catelyn', 'Eddard', 'Sansa', 'Rickon', 'Robb
 //         console.log(`${x} : ${user[x]}`); //logs key value pair
 // }
 
-//Window Object
+//Window Object / Methods / Properties
+
+// console.log(123);
+// //Alert
+// alert('Hello World');
+
+//Prompt
+// const input = prompt();
+// alert(input);
+
+//Confirm - used when deleting something interactivity
+// if(confirm('Are you sure?')){
+//         console.log('Yes');
+// } else {
+//         console.log('No');
+// }
+
+//Properties
+ 
+// let val;
+
+//outer height / width
+// val = window.outerHeight;
+// val = window.outerWidth;
+
+//inner height / width
+// val = window.innerHeight;
+// val = window.innerWidth;
+
+//Scroll points
+// val = window.scrollY;
+// val = window.scrollX;
+
+//Location object
+// val = window.location;
+
+//Redirect
+// window.location.href = 'https://www.google.com'
+
+//Reload
+// window.location.reload(); //constantly reloads page
+
+//History object
+// window.history.go(); goes thru browser history based on index number
+// val = window.history.length;
+
+//Navigator Object
+// val = window.navigator;
+// val = window.navigator.appName;
+// val = window.navigator.appVersion;
+// val = window.navigator.userAgent;
+// val = window.navigator.platform;
+// val = window.navigator.vendor;
+// val = window.navigator.language;
+
+
+// console.log(val);
