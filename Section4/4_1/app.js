@@ -12,6 +12,12 @@ loadEventListeners();
 function loadEventListeners(){
   // add task event
   form.addEventListener('submit', addTask);
+  //Remove task event
+  taskList.addEventListener('click', removeTask);
+  //Clear tasks event
+  clearBtn.addEventListener('click', clearTasks);
+  //Filter tasks event
+  filter.addEventListener('keyup', filterTasks);
 }
 // add task
 function addTask(e){
@@ -38,4 +44,41 @@ function addTask(e){
   //clear input
   taskInput.value = '';
   e.preventDefault();
+}
+
+//Remove Task
+function removeTask(e){
+  //checks e.targets parent to see if the classlist contains the a href
+  if(e.target.parentElement.classList.contains('delete-item')){
+    // console.log(e.target);
+    //removes e.target's parent parent which should be the li container element
+    if(confirm('Are you sure?')){
+      e.target.parentElement.parentElement.remove();
+    }
+  }
+}
+
+//Clear Tasks
+function clearTasks(){
+  // taskList.innerHTML = '';
+  //faster with while loop
+  while(taskList.firstChild){
+    taskList.removeChild(taskList.firstChild);
+  }
+}
+
+function filterTasks(e){
+  const text = e.target.value.toLowerCase();
+  //take all list items and runs forEach
+  document.querySelectorAll('.collection-item').forEach(function(task){
+    //gets text content 
+    const item = task.firstChild.textContent;
+    //pass text being typed into indexOf item nodeList if no match = -1 
+    if(item.toLowerCase().indexOf(text) != -1){
+      task.style.display = 'block';
+    } else {
+      task.style.display = 'none';
+    }
+  });
+  // console.log(text);
 }
