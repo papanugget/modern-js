@@ -215,3 +215,37 @@ const sandor = Object.create(personPrototypes, {
 
 console.log(sandor);
 console.log(sandor.greeting1());
+
+// ES6 Classes
+
+class Person3 {
+  constructor(firstName, lastName, dob) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.birthday = new Date(dob);
+  }
+  greeting() {
+    return `Hello there ${this.firstName} ${this.lastName}`;
+  }
+  calcAge(){
+    const diff = Date.now() - this.birthday.getTime();
+    const ageDate = new Date(diff);
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+  }
+  getsMarried(newLastName){
+    this.lastName = newLastName;
+  }
+  //Static mathods
+  static addNums(x, y){
+    return x + y;
+  }
+}
+
+const cersei = new Person3('Cersei', 'Lannister', '10-10-1986');
+
+cersei.getsMarried('Baratheon')
+console.log(cersei);
+console.log(cersei.greeting());
+console.log(cersei.calcAge());
+
+console.log(Person3.addNums(1,2));
