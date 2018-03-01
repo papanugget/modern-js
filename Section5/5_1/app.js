@@ -141,3 +141,46 @@ console.log(sansa.getFullName());
 
 console.log(sansa.hasOwnProperty('firstName'));  //true
 console.log(sansa.hasOwnProperty('getFullName')); //false exists in prototype not in Person object itself
+
+
+//Prototypal inheritance
+//when one object type inherits from another
+
+//person
+function Person2(firstName, lastName){
+  this.firstName = firstName;
+  this.lastName = lastName;
+}
+
+//greeting
+Person2.prototype.greeting = function(){
+  return `Hello there ${this.firstName} ${this.lastName}`;
+}
+
+const person1 = new Person2('Rickon', 'Stark');
+
+console.log(person1.greeting());
+
+//customer constructor
+function Customer(firstName, lastName, phone, membership){
+  Person2.call(this, firstName, lastName);  //calls Person2 constructor and pulls in properties
+  this.phone = phone;
+  this.membership = membership;
+}
+
+//inherit the Person prototype method greeting()
+Customer.prototype = Object.create(Person2.prototype);
+
+//make customer.prototype return Customer()
+Customer.prototype.constructor = Customer;
+
+const customer1 = new Customer('Syrio', 'Forell', '555-1111', 'VIP');
+
+console.log(customer1);
+
+//Customer greeting
+Customer.prototype.greeting = function(){
+  return `Hello there ${this.firstName} ${this.lastName}.  Your VIP lounge is waiting.`;
+}
+
+console.log(customer1.greeting());  //need to inherit greeting function from Person2 prototype
