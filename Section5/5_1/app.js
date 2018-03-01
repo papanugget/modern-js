@@ -11,24 +11,24 @@
 
 //object constructors for multiple objects of the same type, should start with capital letter
 //Person constructor
-function Person(name, lastName, wolf, dob){
-  this.name = name, //this refers to current scope of the function
-  // console.log(this);
-  this.lastName = lastName,
-  this.wolf = wolf,
-  this.birthday = new Date(dob);
-  this.calcAge = function(){
-    const diff = Date.now() - this.birthday.getTime();  //current dateTime - birthday
-    const ageDate = new Date(diff); //built in constructor Date takes diff as param
-    return Math.abs(ageDate.getUTCFullYear() - 1970);
-   }
-} 
+// function Person(name, lastName, wolf, dob){
+//   this.name = name, //this refers to current scope of the function
+//   // console.log(this);
+//   this.lastName = lastName,
+//   this.wolf = wolf,
+//   this.birthday = new Date(dob);
+//   this.calcAge = function(){
+//     const diff = Date.now() - this.birthday.getTime();  //current dateTime - birthday
+//     const ageDate = new Date(diff); //built in constructor Date takes diff as param
+//     return Math.abs(ageDate.getUTCFullYear() - 1970);
+//    }
+// } 
 
 const jon = new Person('Jon', 'Snow', 'Shadow', '9-10-2000');
 const arya = new Person('Arya', 'Stark', 'Nimeria', '9-9-2003');
 
-console.log(jon.calcAge());
-console.log(arya.calcAge());
+// console.log(jon.calcAge());
+// console.log(arya.calcAge());
 console.log(this);  //global scope refers to window object
 
 // Built in constructors
@@ -95,3 +95,49 @@ const re2 = new RegExp('\\w+');
 console.log(re1);
 console.log(re2);
 
+//Prototypes
+
+//Object.prototype
+//Person.prototype
+function Person(firstName, lastName, wolf, dob){
+  this.firstName = firstName, //this refers to current scope of the function
+  // console.log(this);
+  this.lastName = lastName,
+  this.wolf = wolf,
+  this.birthday = new Date(dob);
+  // this.calcAge = function(){
+  //   const diff = Date.now() - this.birthday.getTime();  //current dateTime - birthday
+  //   const ageDate = new Date(diff); //built in constructor Date takes diff as param
+  //   return Math.abs(ageDate.getUTCFullYear() - 1970);
+  //  }
+} 
+
+//move calcAge function into prototype
+Person.prototype.calcAge = function(){
+  const diff = Date.now() - this.birthday.getTime(); 
+  const ageDate = new Date(diff);
+  return Math.abs(ageDate.getUTCFullYear() - 1970);
+}
+// Get full name
+Person.prototype.getFullName = function(){
+  return `${this.firstName} ${this.lastName}`;
+}
+
+// Gets married
+Person.prototype.getsMarried = function(newLastName){
+  this.lastName = newLastName;
+}
+
+const theon = new Person('Theon', 'Greyjoy', 'None', '9-1-2000');
+const sansa = new Person('Sansa', 'Stark', 'Lady', '9-2-2001');
+console.log(theon);
+console.log(sansa);
+
+console.log(theon.calcAge());
+console.log(sansa.getFullName());
+sansa.getsMarried('Littlefinger');
+
+console.log(sansa.getFullName());
+
+console.log(sansa.hasOwnProperty('firstName'));  //true
+console.log(sansa.hasOwnProperty('getFullName')); //false exists in prototype not in Person object itself
