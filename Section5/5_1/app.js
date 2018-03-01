@@ -217,7 +217,6 @@ console.log(sandor);
 console.log(sandor.greeting1());
 
 // ES6 Classes
-
 class Person3 {
   constructor(firstName, lastName, dob) {
     this.firstName = firstName;
@@ -249,3 +248,31 @@ console.log(cersei.greeting());
 console.log(cersei.calcAge());
 
 console.log(Person3.addNums(1,2));
+
+//Sub classes
+class Person4 {
+  constructor(firstName, lastName){
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+  greeting(){
+    return `Hi, ${this.firstName} ${this.lastName}.  Welome back.`;
+  }
+}
+
+class Customer3 extends Person4 { //Customer subclass extends Person4 class
+  constructor(firstName, lastName, phone, membership){
+    super(firstName, lastName);  //super calls parent class 'Person4'
+    this.phone = phone;
+    this.membership = membership;
+  }
+  static getMembershipCost(){
+    return 500;
+  }
+}
+
+const john = new Customer3('John', 'Doe', '555-1212', 'Basic');
+
+console.log(john);
+console.log(john.greeting());  //calls Person method
+console.log(Customer3.getMembershipCost());
