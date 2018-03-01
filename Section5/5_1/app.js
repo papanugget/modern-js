@@ -184,3 +184,34 @@ Customer.prototype.greeting = function(){
 }
 
 console.log(customer1.greeting());  //need to inherit greeting function from Person2 prototype
+
+//Using Object Create 
+
+const personPrototypes = {
+  greeting1: function(){
+    return `Hello there ${this.firstName} ${this.lastName}`;
+  },
+  getsMarried: function(newLastName){
+    this.lastName = newLastName;
+  }
+}
+
+const dany = Object.create(personPrototypes);
+
+dany.firstName = 'Daenarys';
+dany.lastName = 'Targaryen';
+dany.age = 21;
+
+dany.getsMarried('Drogo');
+
+console.log(dany);
+console.log(dany.greeting1());
+
+const sandor = Object.create(personPrototypes, {
+  firstName: {value: 'Sandor'},
+  lastName: {value: 'Clegane'},
+  age: {value: 45}
+});
+
+console.log(sandor);
+console.log(sandor.greeting1());
