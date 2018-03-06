@@ -48,17 +48,35 @@ UI.prototype.successMsg = () => {
 }
 
 //form valdation
-UI.prototype.validate = () => {
-    const msgField = document.getElementById('message');
-    const msg = document.createElement('p');
+// UI.prototype.validate = () => {
+//     const msgField = document.getElementById('message');
+//     const msg = document.createElement('p');
     
-    if(title.value === '' || author.value === '' || isbn.value === ''){
-        msg.classList.add('error');
-        msg.innerHTML = `Please enter some book info.`;
-        msgField.appendChild(msg);
-    }
-}
+//     if(title.value === '' || author.value === '' || isbn.value === ''){
+//         msg.classList.add('error');
+//         msg.innerHTML = `Please enter some book info.`;
+//         msgField.appendChild(msg);
+//     }
+// }
+// error message
+UI.prototype.showAlert = (message, className) => {
+    //create div
+    const div = document.createElement('div');
+    //add class
+    div.className = `alert ${className}`;
+    // add text / textnode
+    div.appendChild(document.createTextNode(message));
+    // insert into DOM
+    const container = document.querySelector('.container');
+    const form = document.querySelector('#book-form');
+    //insert alert
+    container.insertBefore(div, form);
 
+    // timeout after 3secs
+    setTimeout(() => {
+        document.querySelector('.alert').remove();
+    }, 3000);
+}
 
 //Event Listeners
 document.getElementById('book-form').addEventListener('submit', (e) => {
@@ -69,15 +87,20 @@ document.getElementById('book-form').addEventListener('submit', (e) => {
     //instantiate a book
     const book = new Book(title, author, isbn);
     //instantiate UI
-    const ui = new UI();
+    const ui = new UI(); 
     //Validate form
-    ui.validate();
-    //Add book to list
-    ui.addBookToList(book);    
-    // console.log(book);
-    // clear fields after submission
-    ui.clearFields();
-    ui.successMsg();  
+    if(title === '' || author === '' || isbn === ''){
+        // alert('Failed');
+        // Error alert
+        ui.showAlert('Please fill in all fields', 'error')
+    } else {
+        //Add book to list
+        ui.addBookToList(book);    
+        // show success
+        ui.showAlert('Book successfully added!', 'success');
+        // clear fields after submission
+        ui.clearFields();
+    }  
     e.preventDefault();
     // console.log(title, author, isbn);
 });
