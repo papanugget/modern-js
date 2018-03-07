@@ -31,6 +31,14 @@ UI.prototype.addBookToList = (book) => {
     list.appendChild(row);
 }
 
+//delete book 
+UI.prototype.deleteBook = (target) => {
+    if(target.className === 'delete'){
+        //target is a element and targets parent td and parent of that tr
+        target.parentElement.parentElement.remove();
+    }
+}
+
 // clear fields
 UI.prototype.clearFields = () => {
     document.getElementById('title').value = '';
@@ -39,13 +47,13 @@ UI.prototype.clearFields = () => {
 }
 
 // success message
-UI.prototype.successMsg = () => {
-    const msgField = document.getElementById('message');
-    const msg = document.createElement('p');
-    msg.classList.add('success');
-    msg.innerHTML = `Book successfully submitted!`;
-    msgField.appendChild(msg);
-}
+// UI.prototype.successMsg = () => {
+//     const msgField = document.getElementById('message');
+//     const msg = document.createElement('p');
+//     msg.classList.add('success');
+//     msg.innerHTML = `Book successfully submitted!`;
+//     msgField.appendChild(msg);
+// }
 
 //form valdation
 // UI.prototype.validate = () => {
@@ -78,7 +86,7 @@ UI.prototype.showAlert = (message, className) => {
     }, 3000);
 }
 
-//Event Listeners
+//Event Listener for add book
 document.getElementById('book-form').addEventListener('submit', (e) => {
     //get form values
     const title = document.getElementById('title').value,
@@ -103,4 +111,17 @@ document.getElementById('book-form').addEventListener('submit', (e) => {
     }  
     e.preventDefault();
     // console.log(title, author, isbn);
+});
+
+// event listener for delete
+//get parent element for dynamically added books
+document.getElementById('book-list').addEventListener('click', (e) => {
+    // console.log(123);
+    //instantiate UI
+    const ui = new UI();
+    //call ui delete book function passing event target
+    ui.deleteBook(e.target);
+    //show message
+    ui.showAlert('Book removed!', 'success');
+    e.preventDefault();
 });
