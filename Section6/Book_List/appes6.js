@@ -44,6 +44,45 @@ class UI {
     }
 }
 
+// add local storage
+class Store {
+    static getBooks(){
+        let books;
+        //check local store
+        if(localStorage.getItem('books') === null){
+            books = [];
+        } else {
+            books = JSON.parse(books = localStorage.getItem('books'));
+        }
+        return books;
+    }
+    static displayBooks(){
+        const books = Store.getBooks();
+        books.forEach((book) => {
+            const ui = new UI;
+            //add book to ui
+            ui.addBookToList(book);
+        });
+    }
+    static addBook(book){
+        const books = Store.getBooks();
+        books.push(book);
+        localStorage.setItem('books', JSON.stringify(books));
+    }
+    static removeBook(isbn){
+        const books = Store.getBooks();
+        // console.log(isbn);
+        books.forEach((book, index) => {
+            if(book.isbn === isbn){
+                books.splice(index, 1);
+            }
+        });
+        localStorage.setItem('books', JSON.stringify(books));        
+    }
+}
+// DOM load event listener
+document.addEventListener('DOMContentLoaded', Store.displayBooks);
+
 // Event listeners
 document.getElementById('book-form').addEventListener('submit', (e) => {
     const   title = document.getElementById('title').value,
@@ -55,6 +94,8 @@ document.getElementById('book-form').addEventListener('submit', (e) => {
         ui.showAlert('Please fill in all fields', 'error')
     } else {
         ui.addBookToList(book);
+        //add to local storage
+        Store.addBook(book);
         ui.showAlert('Book successfully added!', 'success');
         ui.clearFields();
     }
@@ -64,6 +105,8 @@ document.getElementById('book-form').addEventListener('submit', (e) => {
 document.getElementById('book-list').addEventListener('click', (e) => {
     const ui = new UI();
     ui.deleteBook(e.target);
+    //remove from local store using ISBN
+    Store.removeBook(e.target.parentElement.previousElementSibling.textContent);
     ui.showAlert('Book removed!', 'success');
     e.preventDefault();
 })
