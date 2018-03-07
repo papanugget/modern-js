@@ -109,4 +109,4 @@ document.getElementById('book-list').addEventListener('click', (e) => {
     Store.removeBook(e.target.parentElement.previousElementSibling.textContent);
     ui.showAlert('Book removed!', 'success');
     e.preventDefault();
-})
+}) 

@@ -86,6 +86,46 @@ UI.prototype.showAlert = (message, className) => {
     }, 3000);
 }
 
+//add local storage
+function Store(){
+}
+
+Store.prototype.getBooks = () => {
+    let books;
+    if(localStorage.getItem('books') === null){
+        books = [];
+    } else {
+        books = JSON.parse(books = localStorage.getItem('books'));
+    }
+}
+Store.prototype.displayBooks = () => {
+    const store = new Store();
+    const books = store.getBooks();
+    books.forEach((book) => {
+        const ui = new UI;
+        ui.addBookToList(book);
+    });
+}
+Store.prototype.addBook = (book) => {
+    const store = new Store();
+    const books = store.getBooks();
+    books.push(book);
+    localStorage.setItem('books', JSON.stringify(books));
+}
+Store.prototype.removeBook = (isbn) => {
+    const store = new Store();
+    const books = store.getBooks();
+    books.forEach((book, index) => {
+        if(book.isbn === isnb){
+            books.splice(index, 1);
+        }
+    });
+    localStorage.setItem('books', JSON.stringify(books));
+}
+// DOM load event listener
+// const store = new Store();
+document.addEventListener('DOMContentLoaded', Store.displayBooks);
+
 //Event Listener for add book
 document.getElementById('book-form').addEventListener('submit', (e) => {
     //get form values
@@ -94,8 +134,9 @@ document.getElementById('book-form').addEventListener('submit', (e) => {
         isbn = document.getElementById('isbn').value;
     //instantiate a book
     const book = new Book(title, author, isbn);
-    //instantiate UI
+    //instantiate UI and local store
     const ui = new UI(); 
+    const store = new Store();
     //Validate form
     if(title === '' || author === '' || isbn === ''){
         // alert('Failed');
@@ -103,7 +144,9 @@ document.getElementById('book-form').addEventListener('submit', (e) => {
         ui.showAlert('Please fill in all fields', 'error')
     } else {
         //Add book to list
-        ui.addBookToList(book);    
+        ui.addBookToList(book);  
+        // add to local storage
+        store.addBook(book);  
         // show success
         ui.showAlert('Book successfully added!', 'success');
         // clear fields after submission
@@ -119,9 +162,15 @@ document.getElementById('book-list').addEventListener('click', (e) => {
     // console.log(123);
     //instantiate UI
     const ui = new UI();
+    //instantiate localstorage
+    const store = new Store();
     //call ui delete book function passing event target
     ui.deleteBook(e.target);
+    //remove from local store using ISBN
+    store.removeBook(e.target.parentElement.previousElementSibling.textContent);
     //show message
     ui.showAlert('Book removed!', 'success');
     e.preventDefault();
 });
+
+// add local storage
