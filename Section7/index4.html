@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">  
+    <link rel="stylesheet" href="./css/style.css">  
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Working with JSON</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Working with JSON</h1>
+        <section>
+            <button id="button1">Get Customer</button>
+            <button id="button2">Get Customers</button>
+        </section>
+        <br><br>
+        <h2>Customer</h2>
+        <div id="customer"></div>
+        <h2>Customers</h2>
+        <div id="customers"></div>
+
+        <section>
+            <div class="row">
+                <div class="12 columns alert"></div>
+            </div>
+            <form>
+                <div class="row">
+                  <div class="six columns">
+                    <label for="Name">Your name</label>
+                    <input class="u-full-width" type="text" placeholder="John Doe" id="nameInput">
+                  </div>
+                  <div class="six columns">
+                    <label for="Company">Your company</label>
+                    <input class="u-full-width" type="text" placeholder="Company name" id="companyInput">
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="six columns">
+                      <label for="Phone">Your phone</label>
+                      <input class="u-full-width" type="text" placeholder="555-1234" id="phoneInput">
+                    </div>
+                    <div class="six columns">
+                        <label for="Comment">Comments</label>
+                        <textarea name="comments" id="commentInput" cols="40" rows="10"></textarea>
+                    </div>
+                  </div>
+                <input class="button-primary u-full-width" type="submit" value="Submit" id="submit">
+              </form>
+              
+        </section>
+        
+        <a href="index3.html" class="button button-primary u-pull-left">AJAX Sandbox</a>        
+        <a href="index4.html" class="button button-primary u-pull-right">Working with JSON</a>   
+    </div>
+    <script src="./js/json.js"></script>
+</body>
+</html>

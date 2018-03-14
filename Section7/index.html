@@ -13,8 +13,45 @@
             <h1>What is Asynchronous Programming?</h1>
         </header> 
         <section>
-            
+            <h4>Synchronous Code</h4>
+            <div class="alert alert-info">
+                <pre><code>
+posts = loadPostsSync();
+//... wait till posts are fetched
+// ... do something with posts
+doTheNextThing(); // Has to wait until posts load
+                </code></pre>
+            </div>
         </section>
+        <section>
+            <h4>Asychronous Code</h4>
+            <div class="alert alert-info">
+                <pre><code>
+loadPostsAsync(function(){
+// ... wait till posts are fetched
+// ... do something with the posts
+});
+doTheNextThing(); // Doesn't have to wait until posts load
+                </code></pre>
+            </div>
+        </section>
+        <section>
+            <h4>Most Async code you work with will be part of an API or library</h4>
+            <ul>
+                <li>XMLHttpRequest & Fetch</li>
+                <li>jQuery Ajax, Axios, other HTTP libraries</li>
+                <li>Node.js fs (filesystem) module</li>
+            </ul>
+        </section>
+        <section>
+            <h4>There are a few ways to work with Async code</h4>
+            <ul>
+                <li>Callbacks</li>
+                <li>Promises</li>
+                <li>Async/Await</li>
+            </ul>
+        </section>
+        <a href="index2.html" class="btn btn-primary float-right">Ajax</a>
     </div>
 </body>
 </html>
