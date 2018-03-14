@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">      
+    <title>REST API's</title>
+</head>
+<body>
+    <div class="container">
+        <h1>What Is An API?</h1>
+        <ul>
+            <li>Application Programming Interface</li>
+            <li>Contract provided by one piece of software to another</li>
+            <li>Structured request and response</li>
+            <li>We just worked with an API that takes a request and responds with jokes</li>
+        </ul>
+        <h2>What is REST?</h2>
+        <ul>
+            <li>Representational State Transfer</li>
+            <li>Architecture style for designing networked apps</li>
+            <li>Relies on a stateless, client-server protocol, almost always HTTP</li>
+            <li>Treats server objects as resources that can be created or destroyed</li>
+            <li>Can be used by virtually any programming language</li>
+            <li>All API's have their own rules and structure</li>
+        </ul>
+        <h2>HTTP Requests</h2>
+        <ul>
+            <li><strong>GET: Retrieve data from a specified resource</strong></li>
+            <li><strong>POST: Submit data to be processed to a specified resource</strong></li>
+            <li><strong>PUT: Update a specified resource</strong></li>
+            <li><strong>DELETE: Delete a specified resource</strong></li>
+        </ul>
+        <ul>
+            <li>Head: Same as get but does not return a body</li>
+            <li>OPTIONS: Returns the supported HTTP protocols</li>
+            <li>PATCH: Update partial resources</li>
+        </ul>
+        <h2>API Endpoints</h2>
+        <ul>
+            <li>GET  https://someurl.com/api/users  //Get all users</li>
+            <li>GET  https://someurl.com/api/users/1  //Get a single user</li>
+            <li>POST  https://someurl.com/api/users  //Add user</li>
+            <li>PUT  https://someurl.com/api/users/1  //Update user</li>
+            <li>DELETE  https://someurl.com/api/users/1  //Delete user</li>
+        </ul>
+        <a href="index5.html" class="button button-primary u-pull-left">Joke Generator</a>        
+        <a href="index7.html" class="button button-primary u-pull-right">Callback Functions</a>   
+    </div>
+</body>
+</html>
