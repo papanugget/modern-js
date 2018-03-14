@@ -34,7 +34,7 @@ function loadCustomers(e){
     const xhr = new XMLHttpRequest();
     xhr.open('GET', './js/customers.json', true);
     xhr.onload = function(){
-        if(this.status === 200){
+        if((this.status === 200) && (localStorage.getItem('customers') === null)){
             const customers = JSON.parse(this.responseText);
             const ui = new UI();
             let output = "";
@@ -58,13 +58,32 @@ function loadCustomers(e){
                         <li>ID: ${customers[i].id}</li>
                         <li>Name: ${customers[i].name}</li>
                         <li>Company: ${customers[i].company}</li>
-                        <li>Phone ${customers[i].phone}</li>
+                        <li>Phone: ${customers[i].phone}</li>
+                        <li>Comments: ${customers[i].comment} </li>
                     </ul>
                 `
                 document.getElementById('customers').innerHTML = output;
-            }  
+            }
+            if(localStorage.getItem('customers') === null){
+                localStorage.setItem('customers', JSON.stringify(customers));
+            }
         } else {
-            alert('Customers file not found');
+            const ui = new UI();
+            const customers = JSON.parse(localStorage.getItem('customers'));
+            let output = "";
+            ui.showAlert('Local copy found, using local copy', 'danger');
+            for(let i = 0; i < customers.length; i++){
+                output += `
+                    <ul>
+                        <li>ID: ${customers[i].id}</li>
+                        <li>Name: ${customers[i].name}</li>
+                        <li>Company: ${customers[i].company}</li>
+                        <li>Phone: ${customers[i].phone}</li>
+                        <li>Comments: ${customers[i].comment} </li>
+                    </ul>
+                `
+                document.getElementById('customers').innerHTML = output;
+            }
         }
     }
     xhr.send();
@@ -107,37 +126,50 @@ function formSubmit(e){
             company = document.getElementById('companyInput').value,
             phone = document.getElementById('phoneInput').value,
             comment = document.getElementById('commentInput').value;
-    let id;
+    const customers = JSON.parse(localStorage.getItem('customers'));
     const ui = new UI();
-    const xhr = new XMLHttpRequest();
     //validate fields for data
     if(name === '' || company === ''  || phone === '' || comment === ''){
         ui.showAlert('Please fill in the form', 'danger');
     } else {
-        xhr.open('GET', './js/customers.json', true);
-        xhr.onload = function(){
-            // function generateId(){
-            //     let id;
-            //     for(let i = 0; i < customers.length; i++){
-            //         let id;
-            //         id += [i];
-            //     }
-            //     return id;
-            // }
-            if(this.status === 200){
-                const customer = new Customer(id, name, company, phone, comment);
-                const customers = JSON.parse(this.responseText);
-                customers.push(customer);
-                console.log(customers);
+        let id;
+        const customer = new Customer(id, name, company, phone, comment);   
+        customers.push(customer);     
+        //loop thru customers array and create an id if none exist
+        for(let i = 0; i < customers.length; i++){
+            if(customers.id === undefined || !customers.id){
+                customer.id = Number([i]) + 1; 
             }
+           console.log(customers);
         }
-        xhr.send();
+        localStorage.setItem('customers', JSON.stringify(customers));
         ui.showAlert('Thanks for adding yourself!', 'success');
         ui.clearFields();
     }
     e.preventDefault();
-    // console.log(e);
 }
+
+//store customers.json in local storage
+// function storeCustomers(person){
+//     let id;
+//     let customers;
+//     const   name = document.getElementById('nameInput').value,
+//             company = document.getElementById('companyInput').value,
+//             phone = document.getElementById('phoneInput').value,
+//             comment = document.getElementById('commentInput').value;
+//     const customer = new Customer(id, name, company, phone, comment);
+//     if(localStorage.getItem('customers') === null){
+//         customers = [];
+//     } else {
+//         customers = JSON.parse(localStorage.getItem('customers'));
+//         console.log(customers);
+//         for(let i = 0; i < customers.length; i++){
+//             return id += [i];
+//         }
+//     }
+//     customers.push(customer);
+//     localStorage.setItem('customers', JSON.stringify(customers));
+// }
 
 //take values from from and push into object
 //take object and push into customers array JSON file
