@@ -28,10 +28,19 @@ const data = {
 };
 
 //post data
-http.post('https://jsonplaceholder.typicode.com/posts', data, function(err, response){
+// http.post('https://jsonplaceholder.typicode.com/posts', data, function(err, response){
+//     if(err){
+//         console.log(err);
+//     } else {
+//         console.log(response)
+//     }
+// });
+
+//update / put data
+http.put('https://jsonplaceholder.typicode.com/posts/1', data, function(err, response){
     if(err){
         console.log(err);
     } else {
-        console.log(response)
+        console.log(response);
     }
-});
+})
