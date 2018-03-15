@@ -5,20 +5,19 @@ console.log("External API's connected");
 
  function getJokes(e){
     //  console.log('get some jokes');
-    const number = document.querySelector('input[type="number"]').value;
+    // const number = document.querySelector('input[type="number"]').value;
     // console.log(number);
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', `http://api.icndb.com/jokes/random/${number}`, true);
+    xhr.open('GET', 'https://icanhazdadjoke.com/', true);
+    xhr.setRequestHeader('Accept', 'application/json');
     xhr.onload = function(){
         if(this.status === 200){
             const jokes = JSON.parse(this.responseText);
             // console.log(jokes);
             let output ='';
             //loop over jokes array
-            if(jokes.type === 'success'){
-                jokes.value.forEach(function(joke){
-                    output += `<li>${joke.joke}</li>`;
-                });
+            if(jokes.status === 200){
+                output += `<li>${jokes.joke}</li>`;
             } else {
                 output += '<li>Something went wrong</li>';
             }
