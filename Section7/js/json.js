@@ -34,6 +34,7 @@ function loadCustomers(e){
     const xhr = new XMLHttpRequest();
     xhr.open('GET', './js/customers.json', true);
     xhr.onload = function(){
+        //check status ok and check if local copy exists
         if((this.status === 200) && (localStorage.getItem('customers') === null)){
             const customers = JSON.parse(this.responseText);
             const ui = new UI();
@@ -65,6 +66,7 @@ function loadCustomers(e){
                 document.getElementById('customers').innerHTML = output;
             }
             if(localStorage.getItem('customers') === null){
+                //local store customers if doesn't exist
                 localStorage.setItem('customers', JSON.stringify(customers));
             }
         } else {
@@ -137,6 +139,7 @@ function formSubmit(e){
         customers.push(customer);     
         //loop thru customers array and create an id if none exist
         for(let i = 0; i < customers.length; i++){
+            //checks existence of id
             if(customers.id === undefined || !customers.id){
                 customer.id = Number([i]) + 1; 
             }
