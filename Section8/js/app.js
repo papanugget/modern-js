@@ -1,6 +1,8 @@
 console.log('Github finder app connected');
 //Init Github constructor
-const github = new GitHub();
+const github = new GitHub;
+//Init UI constructor
+const ui = new UI;
 
 //Search Input
 const searchUser = document.getElementById('searchUser');
@@ -21,6 +23,7 @@ searchUser.addEventListener('keyup', (e) => {
 
                 } else {
                     //show profile -UI
+                    ui.showProfile(data.profile);
                 }
             })
     } else {
