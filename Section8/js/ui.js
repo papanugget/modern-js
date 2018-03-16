@@ -4,6 +4,7 @@ class UI {
     constructor(){
         this.profile = document.getElementById('profile');
     }
+    //display profile in UI
     showProfile(user){
         // console.log(user);
         this.profile.innerHTML = `
@@ -31,5 +32,37 @@ class UI {
             <h3 class="page-heading mb-3">Latest Repos</h3>
             <div id="repos"></div>
         `;
+    }
+    //show an alert message
+    showAlert(message, className){
+        //clear any remaining alerts;
+        this.clearAlert();
+        //create div
+        const div = document.createElement('div');
+        //add classname
+        div.className = className;
+        //add text 
+        div.appendChild(document.createTextNode(message));
+        //get parent element
+        const container = document.querySelector('.searchContainer');
+        //get search box
+        const search = document.querySelector('.search');
+        //insert alert
+        container.insertBefore(div, search);
+        //timeout after 3 secs
+        setTimeout(() => {
+            this.clearAlert();
+        }, 3000);
+    }
+    //clear alert message
+    clearAlert(){
+        const currentAlert = document.querySelector('.alert');
+        if(currentAlert){
+            currentAlert.remove();
+        }
+    }
+    //clear profile
+    clearProfile(){
+        this.profile.innerHTML = '';
     }
 }

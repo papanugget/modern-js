@@ -13,4 +13,7 @@ class GitHub {
             profile
         }
     }
+    async getRepos(repo){
+        
+    }
 }
