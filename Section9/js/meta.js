@@ -30,9 +30,23 @@ re = /Hel{2,}o/i;   //checks for at least 2 occurrences of 'l'
 //Parentheses = grouping
 re = /^([0-9]x){3}$/;
 
+//Shorthand character classes
+re = /\w/;  //word character  - alphanumeric char or _
+re = /\w+/;  //word character + = one or more
+re = /\W/;  //non word characters
+re = /\d/;  //match any digit
+re = /\d+/;  //match any digit 0 or more times
+re = /\D/;  //non digits
+re = /\s/;  //match whitespace character
+re = /\S/;  //match non whitespace character
+re = /Hell\b/;  //word boundary - matches exact phrase 'Hell' not 'Hello'
+
+//Assertions 
+re = /x(?=y)/; //match x only if followed by y
+re = /x(?!y)/; //match x only if not followed by y
 
 // string to match
-const str = '3x3x3x';
+const str = 'x123489';
 
 //log result
 const result = re.exec(str);
