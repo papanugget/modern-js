@@ -14,9 +14,9 @@ const ItemCtrl = (function(){
     //data structure / state
     const data = {
         items: [
-            {id: 0, name: 'Steak dinner', calories: 1200},
-            {id: 1, name: 'Oatmeal cookie', calories: 400},
-            {id: 2, name: 'Plum', calories: 200},
+            // {id: 0, name: 'Steak dinner', calories: 1200},
+            // {id: 1, name: 'Oatmeal cookie', calories: 400},
+            // {id: 2, name: 'Plum', calories: 200},
         ],
         currentItem: null,
         totalCalories: 0
@@ -81,6 +81,27 @@ const UICtrl = (function(){
                 calories: document.querySelector(UISelectors.calories).value
             }
         },
+        addListItem: function(item){
+            //show list
+            document.querySelector(UISelectors.itemList).style.display = 'block';
+            //create li element
+            const li = document.createElement('li');
+            //add class
+            li.className = 'collection-item';
+            //add id
+            li.id = `item-${item.id}`;
+            //add HTML
+            li.innerHTML = `<strong>${item.name}: </strong><egit>${item.calories} Calories</em><a href="#" class="secondary-content"><i class="edit-item fa fa-pencil"></i></a>`;
+            //insert item
+            document.querySelector(UISelectors.itemList).insertAdjacentElement('beforeend', li);
+        },
+        clearFields: function(){
+            document.querySelector(UISelectors.item).value = '';
+            document.querySelector(UISelectors.calories).value = '';
+        },
+        hideList: function(){
+            document.querySelector(UISelectors.itemList).style.display = 'none';
+        },
         //public method
         getSelectors: function(){
             return UISelectors;
@@ -111,6 +132,10 @@ const App = (function(ItemCtrl, UICtrl){
             // console.log(123);
             //add item
             const newItem = ItemCtrl.addItem(input.item, input.calories);
+            //add item to UI list
+            UICtrl.addListItem(newItem);
+            //clear fields
+            UICtrl.clearFields();
         }
         e.preventDefault();
     }
@@ -121,9 +146,14 @@ const App = (function(ItemCtrl, UICtrl){
             // console.log('Initializing App');
             //fetch items from data structure
             const items = ItemCtrl.getItems();
+            //check if any items
+            if(items.length === 0){
+                UICtrl.hideList();
+            } else {
+                //populate list with items
+                UICtrl.populateItemList(items);
+            }
             // console.log(items);
-            //populate list with items
-            UICtrl.populateItemList(items);
             //load event listeners
             loadEvents();
         }
