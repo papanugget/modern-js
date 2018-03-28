@@ -56,6 +56,20 @@ const ItemCtrl = (function(){
             });
             return found;
         },
+        updateListItem: function(item, calories){
+            //turn calories to number
+            calories = parseInt(calories);
+            let found = null;
+            //loop thru items
+            data.items.forEach(function(item){
+                if(item.id === data.currentItem.id){
+                    item.item = name;
+                    item.calories = calories;
+                    found = item;
+                }
+            });
+            return found;
+        },
         setCurrentItem: function(item){
             data.currentItem = item;
         },
@@ -82,14 +96,15 @@ const ItemCtrl = (function(){
 const UICtrl = (function(){
     //private method
     const UISelectors = {
-        itemList: '#item-list',
-        addBtn: '.add-btn',
-        updateBtn: '.update-btn',
-        deleteBtn: '.delete-btn',
-        backBtn: '.back-btn',
-        item: '#item-name',
-        calories: '#item-calories',
-        totalCals: '.total-calories'
+            itemList: '#item-list',
+            listItems: '#item-list li',
+            addBtn: '.add-btn',
+            updateBtn: '.update-btn',
+            deleteBtn: '.delete-btn',
+            backBtn: '.back-btn',
+            name: '#item-name',
+            calories: '#item-calories',
+            totalCals: '.total-calories'
     }
     // console.log('UI controller!');
     return {
@@ -107,7 +122,7 @@ const UICtrl = (function(){
         //get item inputs
         getItemInput: function(){
             return {
-                item: document.querySelector(UISelectors.item).value,
+                name: document.querySelector(UISelectors.name).value,
                 calories: document.querySelector(UISelectors.calories).value
             }
         },
@@ -125,12 +140,25 @@ const UICtrl = (function(){
             //insert item
             document.querySelector(UISelectors.itemList).insertAdjacentElement('beforeend', li);
         },
+        updateListItem: function(item){
+            let listItems = document.querySelectorAll(UISelectors.listItems);
+            //change nodeList to array
+            listItems = Array.from(listItems);
+            // console.log(listItems);
+            listItems.forEach(function(listItem){
+                const itemID = listItem.getAttribute('id');
+                console.log(itemID);
+                if(itemID === `item-${item.id}`){
+                    document.querySelector(`#${itemID}`).innerHTML = `<strong>${item.name}: </strong><em>${item.calories} Calories</em><a href="#" class="secondary-content"><i class="edit-item fa fa-pencil"></i></a>`;
+                }
+            });
+        },
         clearFields: function(){
-            document.querySelector(UISelectors.item).value = '';
+            document.querySelector(UISelectors.name).value = '';
             document.querySelector(UISelectors.calories).value = '';
         },
         addItemToForm: function(){
-            document.querySelector(UISelectors.item).value = ItemCtrl.getCurrentItem().name;
+            document.querySelector(UISelectors.name).value = ItemCtrl.getCurrentItem().name;
             document.querySelector(UISelectors.calories).value = ItemCtrl.getCurrentItem().calories;
             UICtrl.showEditState();
         },
@@ -171,8 +199,17 @@ const App = (function(ItemCtrl, UICtrl){
         const UISelectors = UICtrl.getSelectors();
         //add item event
         const addBtn = document.querySelector(UISelectors.addBtn).addEventListener('click', itemAddSubmit);
+        //disable submit on enter when in edit state
+        document.addEventListener('keypress', function(e){
+            if(e.keycode === 13 || e.which === 13){
+                e.preventDefault();
+                return false;
+            }
+        });
         //edit icon click event
-        document.querySelector(UISelectors.itemList).addEventListener('click', itemUpdateSubmit);
+        document.querySelector(UISelectors.itemList).addEventListener('click', itemEditClick);
+        //update item event
+        document.querySelector(UISelectors.updateBtn).addEventListener('click', itemUpdateSubmit);        
     }
     //Add item submit function
     const itemAddSubmit = function(e){
@@ -184,10 +221,10 @@ const App = (function(ItemCtrl, UICtrl){
         const input = UICtrl.getItemInput();
         // console.log(input);
         //check for data in fields
-        if(input.item !== '' && input.calories !== ''){
+        if(input.name !== '' && input.calories !== ''){
             // console.log(123);
             //add item
-            const newItem = ItemCtrl.addItem(input.item, input.calories);
+            const newItem = ItemCtrl.addItem(input.name, input.calories);
             //add item to UI list
             UICtrl.addListItem(newItem);
             //get total calories
@@ -199,8 +236,8 @@ const App = (function(ItemCtrl, UICtrl){
         }
         e.preventDefault();
     }
-    //update item submit
-    const itemUpdateSubmit = function(e){
+    //Click edit item
+    const itemEditClick = function(e){
         // console.log('test');  //logs test when anywhere in UL is clicked
         if(e.target.classList.contains('edit-item')){
             //targets dynamically added edit icon
@@ -224,6 +261,24 @@ const App = (function(ItemCtrl, UICtrl){
         e.preventDefault();
     }
     // console.log(ItemCtrl.logData());
+
+    //update item submit
+    const itemUpdateSubmit = function(e){
+        // console.log('edit submitted');
+        //get item input
+        const input = UICtrl.getItemInput();
+        //update item
+        const updatedItem = ItemCtrl.updateListItem(input.name, input.calories);
+        //update UI
+        UICtrl.updateListItem(updatedItem);
+        //get total calories
+        const totalCals = ItemCtrl.getTotalCals();
+        //add total cals to UI
+        UICtrl.showTotalCals(totalCals);
+
+        UICtrl.clearEditState();
+        e.preventDefault();
+    }
     //public methods
     return {
         init: function(){
