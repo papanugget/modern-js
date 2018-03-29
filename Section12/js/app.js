@@ -30,6 +30,35 @@ const StorageCtrl = (function(){
                 items = JSON.parse(localStorage.getItem('items'));
             }
             return items;
+        },
+        updateItemStorage: function(updatedItem){
+            //get items from local store
+            let items = JSON.parse(localStorage.getItem('items'));
+            // loop thru items
+            items.forEach(function(item, index){
+                if(updatedItem.id === item.id){
+                    // remove old item and replace with updated
+                    items.splice(index, 1, updatedItem);
+                }
+            });
+            //re set local store
+            localStorage.setItem('items', JSON.stringify(items)); 
+        },
+        deleteItemStorage: function(currentItem){
+            //get items from local store
+            let items = JSON.parse(localStorage.getItem('items'));
+            //loop thru items
+            items.forEach(function(item, index){
+                if(currentItem.id === item.id){
+                    //remove old item
+                    items.splice(index, 1);
+                }
+            });
+            //reset local store
+            localStorage.setItem('items', JSON.stringify(items));
+        },
+        deleteAllStore: function(){
+            localStorage.removeItem('items');
         }
     }
 })();
@@ -342,6 +371,8 @@ const App = (function(ItemCtrl, StorageCtrl, UICtrl){
         const totalCals = ItemCtrl.getTotalCals();
         //add total cals to UI
         UICtrl.showTotalCals(totalCals);
+        //update local storage
+        StorageCtrl.updateItemStorage(updatedItem);
         UICtrl.clearEditState();
         e.preventDefault();
     }
@@ -358,6 +389,8 @@ const App = (function(ItemCtrl, StorageCtrl, UICtrl){
         const totalCals = ItemCtrl.getTotalCals();
         //add total cals to UI
         UICtrl.showTotalCals(totalCals);
+        //delete from local store
+        StorageCtrl.deleteItemStorage(currentItem);
         UICtrl.clearEditState();
         e.preventDefault();
     }
@@ -372,6 +405,8 @@ const App = (function(ItemCtrl, StorageCtrl, UICtrl){
         const totalCals = ItemCtrl.getTotalCals();
         //add total cals to UI
         UICtrl.showTotalCals(totalCals);
+        //clear all from local store
+        StorageCtrl.deleteAllStore();
         //hide UL
         UICtrl.hideList();
     }
